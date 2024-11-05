@@ -30,6 +30,17 @@ flags.DEFINE_multi_integer('lr_step', [60000, 80000], 'Iterations to reduce lear
 
 log_every = 20
 
+def horizontal_flip(image, bboxes):
+    # print(image.shape, bboxes.shape)
+    flipped_image = torch.flip(image, dims=[1])
+    img_width = image.shape[1]
+    x_min = bboxes[:, :, 0]
+    y_min = bboxes[:, :, 1]
+    x_max = bboxes[:, :, 2]
+    y_max = bboxes[:, :, 3]
+    flipped_bboxes = torch.stack([img_width - x_max, y_min, img_width - x_min, y_max], dim = -1).to(image.device)
+    return flipped_image, flipped_bboxes
+
 def setup_logging():
     log_formatter = logging.Formatter(
         '%(asctime)s: %(levelname)s %(filename)s:%(lineno)d] %(message)s',
@@ -69,12 +80,6 @@ def main(_):
     # device = torch.device("mps") 
     model.to(device)
 
-    # transform = transforms.Compose([
-    #     transforms.RandomHorizontalFlip(p=0.5),
-    #     transforms.ToTensor()
-    # ])
-
-
     writer = SummaryWriter(FLAGS.output_dir, max_queue=1000, flush_secs=120)
     optimizer = torch.optim.SGD(model.parameters(), lr=FLAGS.lr, 
                                 momentum=FLAGS.momentum, 
@@ -99,7 +104,15 @@ def main(_):
             dataloader_iter = iter(dataloader_train)
         
         image, cls, bbox, is_crowd, image_id, _ = next(dataloader_iter)
-        
+
+        # print(bbox.shape)
+        flipped_image, flipped_bbox = horizontal_flip(image, bbox)
+        image = torch.cat([image, flipped_image], dim = 0)
+        bbox = torch.cat([bbox, flipped_bbox], dim = 0)
+        cls = torch.cat([cls, cls], dim = 0)
+        # print(image.shape, flipped_image.shape)
+        # print(bbox.shape, flipped_bbox.shape)
+
         if len(bbox) == 0:
             continue
 
@@ -109,6 +122,7 @@ def main(_):
 
         outs = model(image)
         pred_clss, pred_bboxes, anchors = get_detections(outs)
+        # print(anchors.shape, cls.shape)
         gt_clss, gt_bboxes = compute_targets(anchors, cls, bbox)
         
         pred_clss = pred_clss.sigmoid()
