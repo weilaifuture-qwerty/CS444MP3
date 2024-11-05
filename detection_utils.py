@@ -190,5 +190,5 @@ def nms(bboxes, scores, threshold=0.5):
             for j in range(N):
                 if iou[index][j] > threshold:
                     tag[j] = 1
-    return torch.tensor(keep, device = bboxes.device)
+    return torch.tensor(keep, device = bboxes.device).to(torch.int)
     
