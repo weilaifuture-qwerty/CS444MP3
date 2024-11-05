@@ -116,7 +116,6 @@ def main(_):
                                                         anchors, gt_clss,
                                                         gt_bboxes)
         cls_loss = classification_loss.mean()
-        # cls_loss = torchvision.ops.sigmoid_focal_loss(pred_clss, gt_clss)
         bbox_loss = regression_loss.mean()
         total_loss = cls_loss + bbox_loss
         
@@ -129,7 +128,7 @@ def main(_):
             break
         
         total_loss.backward()
-        # torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=2.0)
+        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=2.0)
 
         optimizer.step()
         optimizer.zero_grad()
