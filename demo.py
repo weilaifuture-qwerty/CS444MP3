@@ -69,10 +69,10 @@ def main(_):
     # device = torch.device("mps") 
     model.to(device)
 
-    # transform = transforms.Compose([
-    #     transforms.RandomHorizontalFlip(p=0.5),
-    #     transforms.ToTensor()
-    # ])
+    transform = transforms.Compose([
+        transforms.RandomHorizontalFlip(p=0.5),
+        transforms.ToTensor()
+    ])
 
 
     writer = SummaryWriter(FLAGS.output_dir, max_queue=1000, flush_secs=120)
