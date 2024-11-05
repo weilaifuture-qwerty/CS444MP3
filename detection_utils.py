@@ -128,9 +128,9 @@ def compute_bbox_targets(anchors, gt_bboxes):
     gt_bbox_height = gt_bboxes[:, 3] - gt_bboxes[:, 1]
     delta_x = (gt_bbox_center_x - anchor_center_x) / anchor_width
     delta_y = (gt_bbox_center_y - anchor_center_y) / anchor_height
-    tmp = torch.ones(gt_bbox_width.shape)
-    delta_w = np.log(torch.maximum(gt_bbox_width, tmp) / anchor_width)
-    delta_h = np.log(torch.maximum(gt_bbox_height, tmp) / anchor_height)
+    tmp = torch.ones(gt_bbox_width.shape).to(anchors.device)
+    delta_w = torch.log(torch.maximum(gt_bbox_width, tmp) / anchor_width).to(anchors.device)
+    delta_h = torch.log(torch.maximum(gt_bbox_height, tmp) / anchor_height).to(anchors.device)
     ans = torch.stack([delta_x, delta_y, delta_w, delta_h], dim=-1)
     ans = ans.to(anchors.device)
     return ans

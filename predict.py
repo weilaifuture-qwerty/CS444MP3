@@ -108,10 +108,11 @@ def main(_):
     model.load_state_dict(
         torch.load(
             f'{FLAGS.model_dir}/model_{FLAGS.test_model_checkpoint}.pth'))
+    
     model.eval()
 
-    device = torch.device('cuda:0')
-    # device = torch.device("mps")
+    # device = torch.device('cuda:0')
+    device = torch.device("mps")
     model.to(device)
     results = []
     for i, (image, _, _, _, image_id, resize_factor) in enumerate(tqdm(dataloader, ncols=80, mininterval=20, position=-1)):
