@@ -103,7 +103,7 @@ class Anchors(nn.Module):
         anchors_for_one_pixel = torch.stack((x, y, x, y)).repeat(A, 1, 1)
         anchors_for_one_pixel.to(x.device)
         offsets = torch.unsqueeze(torch.unsqueeze(torch.flatten(self.anchor_offsets), 1), 1).expand(-1, H, W)
-        offsets.to(x.device)
+        offsets = offsets.to(x.device)
         anchors_for_one = anchors_for_one_pixel + offsets
         anchors_for_one.to(x.device)
         # x_min = torch.Tensor.repeat(x, (A, 1, 1)) + torch.unsqueeze(torch.unsqueeze(self.anchor_offsets[:, 0], 1), 1).expand(-1, H, W)
