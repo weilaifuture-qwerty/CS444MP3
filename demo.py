@@ -107,6 +107,7 @@ def main(_):
                                                         anchors, gt_clss,
                                                         gt_bboxes)
         cls_loss = classification_loss.mean()
+        # cls_loss = torchvision.ops.sigmoid_focal_loss(pred_clss, gt_clss)
         bbox_loss = regression_loss.mean()
         total_loss = cls_loss + bbox_loss
         
