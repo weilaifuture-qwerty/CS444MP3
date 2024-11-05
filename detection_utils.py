@@ -181,7 +181,7 @@ def nms(bboxes, scores, threshold=0.5):
     iou = compute_bbox_iou(bboxes, bboxes)
     tag = torch.zeros(N)
     scores = -scores
-    indexs = np.argsort(scores)
+    indexs = torch.argsort(scores)
     keep = []
     for index in indexs:
         if tag[index] == 0:
