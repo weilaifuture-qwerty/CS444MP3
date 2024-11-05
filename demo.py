@@ -76,8 +76,7 @@ def main(_):
                                 weight_decay=FLAGS.weight_decay)
     
     milestones = [int(x) for x in FLAGS.lr_step]
-    scheduler = torch.optim.lr_scheduler.MultiStepLR(
-        optimizer, milestones=milestones, gamma=0.1)
+    scheduler = torch.optim.lr_scheduler.LinearLR(optimizer, start_factor=0.001, total_iters=2000)
     
     optimizer.zero_grad()
     dataloader_iter = None
