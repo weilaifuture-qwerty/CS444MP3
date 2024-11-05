@@ -64,9 +64,9 @@ def main(_):
     model = RetinaNet(p67=True, fpn=True)
 
     num_classes = dataset_train.num_classes
-    # device = torch.device('cuda:0')
+    device = torch.device('cuda:0')
     # For Mac users
-    device = torch.device("mps") 
+    # device = torch.device("mps") 
     model.to(device)
 
     # transform = transforms.Compose([
