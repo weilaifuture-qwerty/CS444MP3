@@ -5,7 +5,7 @@ from detection_utils import compute_bbox_targets
 
 class LossFunc(nn.Module):
 
-    def forward(self, classifications, regressions, anchors, gt_clss, gt_bboxes, gamma = 2, alpha = 0.25):
+    def forward(self, classjifications, regressions, anchors, gt_clss, gt_bboxes, gamma = 2, alpha = 0.25):
 
         device = classifications.device
         batch_size = classifications.shape[0]
