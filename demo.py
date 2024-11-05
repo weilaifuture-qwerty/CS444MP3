@@ -21,7 +21,7 @@ flags.DEFINE_float('weight_decay', 1e-4, 'Weight Deacy for optimizer')
 flags.DEFINE_string('output_dir', 'runs/retina-net-basic/', 'Output Directory')
 flags.DEFINE_integer('batch_size', 10, 'Batch Size')
 flags.DEFINE_integer('seed', 2, 'Random seed')
-flags.DEFINE_integer('max_iter', 70000, 'Total Iterations')
+flags.DEFINE_integer('max_iter', 100000, 'Total Iterations')
 flags.DEFINE_integer('val_every', 10000, 'Iterations interval to validate')
 flags.DEFINE_integer('save_every', 50000, 'Iterations interval to validate')
 flags.DEFINE_integer('preload_images', 1, 
