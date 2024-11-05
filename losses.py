@@ -5,7 +5,7 @@ from detection_utils import compute_bbox_targets
 
 class LossFunc(nn.Module):
 
-    def forward(self, classifications, regressions, anchors, gt_clss, gt_bboxes):
+    def forward(self, classifications, regressions, anchors, gt_clss, gt_bboxes, gamma = 2, alpha = 0.25):
 
         device = classifications.device
         batch_size = classifications.shape[0]
@@ -42,10 +42,9 @@ class LossFunc(nn.Module):
             targets[non_negative_indices, :] = 0
             targets[positive_indices, targets_cls[positive_indices] - 1] = 1
 
-            bce = -(targets * torch.log(classification) + (1.0 - targets) * torch.log(1.0 - classification))
+            bce = -(alpha * targets * ((1.0 - classification) ** alpha) * torch.log(classification) + (1.0 - alpha) * (1.0 - targets) * (classification ** alpha) * torch.log(1.0 - classification))
             cls_loss = bce
             
-
             cls_loss = torch.where(torch.ne(targets, -1.0), cls_loss, torch.zeros(cls_loss.shape).to(device))
             classification_losses.append(cls_loss.sum()/torch.clamp(num_positive_anchors.float(), min=1.0))
 
