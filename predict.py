@@ -111,8 +111,8 @@ def main(_):
     
     model.eval()
 
-    device = torch.device('cuda:0')
-    # device = torch.device("mps")
+    # device = torch.device('cuda:0')
+    device = torch.device("mps")
     model.to(device)
     results = []
     for i, (image, _, _, _, image_id, resize_factor) in enumerate(tqdm(dataloader, ncols=80, mininterval=20, position=-1)):

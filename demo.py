@@ -64,10 +64,15 @@ def main(_):
     model = RetinaNet(p67=True, fpn=True)
 
     num_classes = dataset_train.num_classes
-    device = torch.device('cuda:0')
+    # device = torch.device('cuda:0')
     # For Mac users
-    # device = torch.device("mps") 
+    device = torch.device("mps") 
     model.to(device)
+
+    # transform = transforms.Compose([
+    #     transforms.RandomHorizontalFlip(p=0.5),
+    #     transforms.ToTensor()
+    # ])
 
 
     writer = SummaryWriter(FLAGS.output_dir, max_queue=1000, flush_secs=120)
@@ -75,7 +80,11 @@ def main(_):
                                 momentum=FLAGS.momentum, 
                                 weight_decay=FLAGS.weight_decay)
     
-    scheduler = torch.optim.lr_scheduler.LinearLR(optimizer, start_factor=0.1, total_iters=2000)
+    milestones = [int(x) for x in FLAGS.lr_step]
+    scheduler = torch.optim.lr_scheduler.MultiStepLR(
+        optimizer, milestones=milestones, gamma=0.1)
+
+    # scheduler = torch.optim.lr_scheduler.LinearLR(optimizer, start_factor=0.1, total_iters=2000)
     
     optimizer.zero_grad()
     dataloader_iter = None
