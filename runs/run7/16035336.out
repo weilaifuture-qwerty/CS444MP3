@@ -1,0 +1,42 @@
+Runnng on ccc0390.campuscluster.illinois.edu
+Tue Nov  5 19:16:03 2024       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-80GB          Off |   00000000:41:00.0 Off |                    0 |
+| N/A   22C    P0             59W /  500W |       1MiB /  81920MiB |     26%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+loading annotations into memory...
+Done (t=0.45s)
+creating index...
+index created!
+2024-11-05 19:16:12: INFO dataset.py:52] Preloading train Images Strings into memory
+2024-11-05 19:16:23: INFO dataset.py:60] Preloaded 500 / 5000 train images
+2024-11-05 19:16:31: INFO dataset.py:60] Preloaded 1000 / 5000 train images
+2024-11-05 19:16:37: INFO dataset.py:60] Preloaded 1500 / 5000 train images
+2024-11-05 19:16:43: INFO dataset.py:60] Preloaded 2000 / 5000 train images
+2024-11-05 19:16:51: INFO dataset.py:60] Preloaded 2500 / 5000 train images
+2024-11-05 19:16:59: INFO dataset.py:60] Preloaded 3000 / 5000 train images
+2024-11-05 19:17:07: INFO dataset.py:60] Preloaded 3500 / 5000 train images
+2024-11-05 19:17:15: INFO dataset.py:60] Preloaded 4000 / 5000 train images
+2024-11-05 19:17:24: INFO dataset.py:60] Preloaded 4500 / 5000 train images
+2024-11-05 19:17:32: INFO dataset.py:60] Preloaded 5000 / 5000 train images
+2024-11-05 19:17:32: INFO dataset.py:61] Finished Preloading train Images.
+loading annotations into memory...
+Done (t=0.10s)
+creating index...
+index created!
+2024-11-05 19:17:32: INFO dataset.py:52] Preloading val Images Strings into memory
